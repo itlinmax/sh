@@ -1,0 +1,19 @@
+import socket
+host="10.1.1.155"
+port = 9998
+
+try:
+    mysocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    mysocket.connect((host, port))
+    print(f"Connected to host '{host}' in port: '{port}'")
+    message = mysocket.recv(1024)
+    print("Message received from the server", message)
+    while True:
+        message = input("Enter your message > ")
+        mysocket.send(bytes(message.encode('utf-8')))
+        if message== "quit":
+            break
+except socket.errno as error:
+    print("Socket error ", error)
+finally:
+    mysocket.close()
