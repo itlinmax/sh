@@ -1,2 +1,3 @@
 grepip * | awk '{print $4}' | paste -sd+ | bc
 numfmt --to=iec-i --suffix=B --format="%9.2f" 8389705436
+
