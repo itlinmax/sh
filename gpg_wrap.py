@@ -45,7 +45,7 @@ if args.decrypt:
     for file_name in args.files:
         full_path_name = str(Path(file_name).resolve())
         decrypted_file_name = full_path_name.replace(".asc", "")
-        sed_cmd = f"sed -i -e '1 i-----BEGIN PGP MESSAGE-----' -e '$a -----END PGP MESSAGE-----' {full_path_name}"
+        sed_cmd = f"sed -i -e '1 i-----BEGIN PGP MESSAGE-----' -e '$ a -----END PGP MESSAGE-----' {full_path_name}"
         _ = subprocess.run(shlex.split(sed_cmd), check=True, encoding="utf-8", stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         gpg_cmd = f"gpg --yes --batch --decrypt --cipher-algo AES256 --passphrase {decrypt_password} -o '{decrypted_file_name}' '{full_path_name}'"
         _ = subprocess.run(shlex.split(gpg_cmd), check=True, encoding="utf-8", stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
